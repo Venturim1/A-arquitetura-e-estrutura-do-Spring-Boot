@@ -4,11 +4,13 @@ import oi.github.venturim1.arquiteturaspring.montadora.Motor;
 import oi.github.venturim1.arquiteturaspring.montadora.TiposDeMotor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration //Fala que tem alguns beans que precisam ser configurados e registrados
 public class MontadoraConfiguration {
 
     @Bean(name = "motorAspirado")
+    @Primary
     public Motor motorAspirado() {
         var motor = new Motor();
         motor.setCavlos(120.0);
@@ -26,7 +28,7 @@ public class MontadoraConfiguration {
         motor.setCavlos(135.0);
         motor.setCilindro(4);
         motor.setLitragem(1.0);
-        motor.setModelo("Honda VTE");
+        motor.setModelo("Honda VTEC");
         motor.setTipo(TiposDeMotor.TURBO);
 
         return motor;
