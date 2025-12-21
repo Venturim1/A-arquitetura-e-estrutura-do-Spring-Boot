@@ -1,6 +1,9 @@
 package oi.github.venturim1.arquiteturaspring.todos;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("todos")
@@ -14,7 +17,13 @@ public class TodoController {
 
     @PostMapping
     public TodoEntity save(@RequestBody TodoEntity todoEntity){
-        return this.todoService.save(todoEntity);
+        try {
+            return this.todoService.save(todoEntity);
+        } catch (IllegalArgumentException e) {
+            var mensagemErro = e.getMessage();
+            throw new ResponseStatusException(HttpStatus.CONFLICT, mensagemErro);
+        }
+
     }
 
     @PutMapping("{id}")
